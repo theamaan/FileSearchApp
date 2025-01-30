@@ -1,0 +1,39 @@
+﻿@model FileSearchApp.Models.FileModel
+
+@{
+    ViewBag.Title = "Search File";
+}
+
+<h2>Search for a File</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <p style="color:red;">@ViewBag.Message</p>
+}
+
+@using (Html.BeginForm("Search", "File", FormMethod.Post))
+{
+    <div>
+        <label>Enter Directory Path:</label>
+        @Html.TextBoxFor(m => m.DirectoryPath, new { @class = "form-control", required = "required", placeholder = "e.g., C:\\Users\\YourName\\Downloads" })
+    </div>
+    <br>
+    <div>
+        <label>Enter File Name:</label>
+        @Html.TextBoxFor(m => m.FileName, new { @class = "form-control", required = "required", placeholder = "e.g., InvoiceData.txt" })
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Search</button>
+}
+
+
+@if (Model != null && !string.IsNullOrEmpty(Model.FilePath))
+{
+    <h3>File Found: @Model.FilePath</h3>
+
+    using (Html.BeginForm("Download", "File", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.FilePath)
+        <button type="submit" class="btn btn-success">Download File</button>
+    }
+}

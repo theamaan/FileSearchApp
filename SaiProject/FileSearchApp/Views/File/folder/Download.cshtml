@@ -1,0 +1,10 @@
+﻿@model FileSearchApp.Models.FileModel
+
+<h2>File Found</h2>
+
+<p>File Path: @Model.FilePath</p>
+
+<form asp-action="Download" method="post">
+    <input type="hidden" asp-for="FilePath" />
+    <button type="submit">Download File</button>
+</form>
